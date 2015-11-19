@@ -38,6 +38,8 @@ RUN ldconfig
 RUN mkdir /gnuspeech
 RUN cp -R ./data /gnuspeech
 
+# gnuspeech.sh is a helper script to more easily use gnuspeech.
+# These two lines add it to the cotainer and make sure the function gets sourced into the bash environment
 ADD gnuspeech.sh /root
 RUN echo source /root/gnuspeech.sh >> /root/.bashrc
 
