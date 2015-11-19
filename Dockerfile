@@ -7,6 +7,7 @@ MAINTAINER Bradley Bossard <bradleybossard@gmail.com>
 # Fire up an instance with a bash shell
 # docker run --rm -i -t docker-gnuspeech
 
+# Necessary for add-apt
 RUN apt-get install -y software-properties-common
 
 RUN add-apt-repository ppa:george-edison55/cmake-3.x
@@ -14,6 +15,7 @@ RUN add-apt-repository ppa:george-edison55/cmake-3.x
 RUN apt-get update
 
 RUN apt-get install -y wget \
+                       lame \
                        cmake \
                        software-properties-common \
                        build-essential
@@ -36,4 +38,6 @@ RUN ldconfig
 RUN mkdir /gnuspeech
 RUN cp -R ./data /gnuspeech
 
-RUN touch trm_param_file.txt; gnuspeech_sa -c /gnuspeech/data/en/ -p trm_param_file.txt -o output_file.wav "your text goes here"
+ADD gnuspeech.sh /root
+RUN echo source /root/gnuspeech.sh >> /root/.bashrc
+
